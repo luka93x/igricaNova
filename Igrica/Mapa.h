@@ -35,7 +35,7 @@ public:
 	vector<Path*> getFilledSlots();
 	vector<Path*>getRoom1();
 	vector<Path*>getRoom2();
-	vector<Path*>getRoom3();
+
 };
 	
 	
