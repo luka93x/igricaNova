@@ -1,0 +1,90 @@
+#include "Potion.h"
+#include"Displayble.h"
+
+
+
+Potion::Potion() :Displayble('p')
+{
+
+}
+
+Potion::Potion(string s) : Displayble('p')
+{
+	if (s == "RH") {
+		type = PotionType::RH;
+	}
+	else if (s == "BA") {
+		type = PotionType::BA;
+	}
+	else if (s == "BD") {
+		type = PotionType::BD;
+	}
+	else if (s == "PH") {
+		type = PotionType::PH;
+	}
+	else if (s == "WA") {
+		type = PotionType::WA;
+	}
+	else if (s == "WD") {
+		type = PotionType::WD;
+	}
+	else
+		type = PotionType::NF;
+
+}
+
+void Potion::setPotionType(string s)
+{
+	if (s == "rh") {
+		type = PotionType::RH;
+	}
+	else if (s == "BA") {
+		type = PotionType::BA;
+	}
+	else if (s == "BD") {
+		type = PotionType::BD;
+	}
+	else if (s == "PH") {
+		type = PotionType::PH;
+	}
+	else if (s == "WA") {
+		type = PotionType::WA;
+	}
+	else if (s == "WD") {
+		type = PotionType::WD;
+	}
+	else
+		type = PotionType::NF;
+
+}
+
+void Potion::usePotion(Karakter* player)
+{
+	int x = 5;
+	int y = -5;
+	if (player->getRace() == Race::ELF) {
+		y = x;
+	}
+		if (type == PotionType::RH) {
+			player->addHP(2 * x);
+		}
+		else if (type == PotionType::PH) {
+			player->addHP(2 * y);
+		}
+		else if (type == PotionType::BA) {
+			player->addAtk(x);
+		}
+		else if (type == PotionType::BD) {
+			player->addDef(x);
+		}
+		else if (type == PotionType::WA) {
+			player->addAtk(y);
+		}
+		else if (type == PotionType::WD) {
+			player->addDef(y);
+		}
+}
+
+
+
+
