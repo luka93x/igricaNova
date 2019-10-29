@@ -14,9 +14,8 @@ MonsterManager * MonsterManager::getInstance()
 
 void MonsterManager::resolveAllMonsters(vector<Path*> filledSpots)
 {
-	Path* monster;
 	for (int x = 0; x < filledSpots.size(); x++) {
-		monster = filledSpots[x];
+		Path* monster = filledSpots[x];
 		attackOrMove(monster);
 	}
 }
@@ -30,13 +29,14 @@ MonsterManager::~MonsterManager()
 {
 }
 
-void MonsterManager::attackOrMove(Path * monster)
-{	
+void MonsterManager::attackOrMove(Path* monster)
+{
 	Cordinate cor = Mapa::getInstance()->getCordinateOfPath(monster);
 	vector<Path*>surroundingPaths = pathsAroundMonster(cor);
-	if (isKarakterNext(surroundingPaths))
+	auto karakterSlot = isKarakterNext(surroundingPaths);
+	if (karakterSlot)
 	{
-		Stats* karakter = isKarakterNext(surroundingPaths)->getObjetOnPath()->toStats();
+		Stats* karakter = karakterSlot->getObjetOnPath()->toStats();
 		Stats* attacker = monster->getObjetOnPath()->toStats();
 		AttackManager::getInstance()->attack(attacker, karakter);
 	}
@@ -51,49 +51,34 @@ void MonsterManager::attackOrMove(Path * monster)
 
 vector<Path*> MonsterManager::pathsAroundMonster(Cordinate cor)
 {
-	Cordinate addCord;
-	vector<Path*>surroundingPaths;
-	for (int x = -1; x <= 1; x++) {
-		for (int y = -1; y <= 1; y++) {
-			if (x == 0 && y == 0) {
-
-			}
-			else {
-				addCord = { x,y };
-				Displayble* dis = Mapa::getInstance()->getDisplayable(cor + addCord);
-				if (dis->isPath())
-				{
-					Path* p = dis->toPath();
-					if (p->isOccupied()) {
-						if (p->getObjetOnPath()->isKarakter()) {
-							surroundingPaths.push_back(p);
-						}
-					}
-					else if (!p->isOccupied())
-					{
-						if (p->displayChar() == '.') {
-							surroundingPaths.push_back(p);
-						}
-
-					}
-				}
+	vector<Path*> surroundingPaths;
+	vector <Path*> pathsAroud = Mapa::getInstance()->getPathsAroundByCord(cor);
+	for (int i = 0; i < pathsAroud.size(); i++) {
+		Path* p = pathsAroud[i];
+		if (p->isOccupied()) {
+			if (p->getObjetOnPath()->isKarakter()) {
+				surroundingPaths.push_back(p);
 			}
 		}
-	}
+		else if (!p->isOccupied())
+		{
+			if (p->displayChar() == '.') {
+				surroundingPaths.push_back(p);
+			}
 
+		}
+	}
 	return surroundingPaths;
 }
 
 Path* MonsterManager::isKarakterNext(vector<Path*> paths)
 {
-	
+
 	for (int x = 0; x < paths.size(); x++) {
 		Path* p = paths[x];
 		if (p->getObjetOnPath()->isKarakter()) {
 			return p;
-		
 		}
-	
 	}
 	return nullptr;
 }

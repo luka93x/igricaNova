@@ -61,8 +61,7 @@ bool MovmentManager::usePotion(Path * p)
 	if (p->getObjetOnPath()->isPotion()) {
 		Potion* potion = p->getObjetOnPath()->toPotion();
 		potion->usePotion(&player);
-		p->setObjectOnPath(nullptr);
-		cout << "trenutni helti su" << player.getHP();
+		p->setObjectOnPath(nullptr);;
 	}
 
 	return true;

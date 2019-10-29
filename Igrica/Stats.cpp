@@ -77,8 +77,5 @@ int Stats::getDef()
 
 bool Stats::isDead()
 {
-	if (this->getHP() <= 0) {
-		return true;
-	}
-	return false;
+	return this->getHP() <= 0;
 }

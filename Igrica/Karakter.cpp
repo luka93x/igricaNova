@@ -117,6 +117,21 @@ bool Karakter::checkIfMonster()
 	return isMonster;
 }
 
+void Karakter::addTypeofUsedPotion(PotionType ptype)
+{
+	usedPotions.push_back(ptype);
+}
+
+bool Karakter::isPotionTypedUsed(PotionType ptype)
+{
+	for (int i = 0; i < usedPotions.size(); i++) {
+		if (usedPotions[i] == ptype) {
+			return true;
+		}
+	}
+	return false;
+}
+
 
 
 

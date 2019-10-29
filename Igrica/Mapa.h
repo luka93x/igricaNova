@@ -3,6 +3,7 @@
 #include "Displayble.h";
 #include <vector>
 #include"Path.h"
+#include<set>
 
 using namespace std;
 
@@ -15,6 +16,9 @@ struct Cordinate
 	Cordinate operator+=(Cordinate const& rhs) {
 		return { x = x + rhs.x,y = y + rhs.y };
 	};
+	Cordinate operator-(Cordinate const& rhs) {
+		return { x - rhs.x, y - rhs.y };
+	};
 };
 
 
@@ -26,6 +30,7 @@ private:
 	void fillMap();
 	Mapa();
 	static Mapa* instance;
+	
 public:
 	static Mapa* getInstance();
 	void printMap();
@@ -33,9 +38,9 @@ public:
 	vector<Path*> getEmptySlots();
 	Cordinate getCordinateOfPath(Path* p);
 	vector<Path*> getFilledSlots();
-	vector<Path*>getRoom1();
-	vector<Path*>getRoom2();
-
+	vector<Path*> getPathsAroundByCord(Cordinate startingCor);
+	vector<Path*> getAllPath();
+	void getFloor(Path* startingPath, vector<Path*>* allreadyBeen);
 };
 	
 	

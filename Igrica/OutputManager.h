@@ -4,7 +4,7 @@
 #include <string>
 #include "Path.h"
 using namespace std;
-enum out{MOVMENT, Demage};
+enum out{SPAWN,OTHER};
 class OutputManager
 {
 public:
@@ -19,7 +19,8 @@ private:
 	string ifPotion();
 	OutputManager();
 	~OutputManager();
-	out whatToWrite;
-	string s;
+	out whatToWrite = SPAWN;
+	string outputString;
+	string potionOutput(Path* p);
 };
 

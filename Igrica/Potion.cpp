@@ -73,6 +73,7 @@ void Potion::usePotion(Karakter* player)
 		}
 		else if (type == PotionType::BA) {
 			player->addAtk(x);
+			player->addTypeofUsedPotion(RH);
 		}
 		else if (type == PotionType::BD) {
 			player->addDef(x);
@@ -83,7 +84,46 @@ void Potion::usePotion(Karakter* player)
 		else if (type == PotionType::WD) {
 			player->addDef(y);
 		}
+
+		player->addTypeofUsedPotion(type);
 }
+
+PotionType Potion::getPotionType()
+{
+	return type;
+}
+
+string Potion::getPotionTypeByString()
+{
+	switch (type)
+	{
+	case RH:
+		return "RH";
+		break;
+	case BA:
+		return "BA";
+		break;
+	case BD:
+		return "BD";
+		break;
+	case PH:
+		return "PH";
+		break;
+	case WA:
+		return "WA";
+		break;
+	case WD:
+		return "WD";
+		break;
+	case NF:
+		return "No effect";
+		break;
+	default:
+		break;
+	}
+}
+
+
 
 
 

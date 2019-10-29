@@ -17,18 +17,12 @@ OutputManager * OutputManager::getInstance()
 
 void OutputManager::outInfo()
 {
-	if (whatToWrite == MOVMENT) {
-		output(MovmentManager::getInstace()->getplayer());
-		cout << s << endl;
-	}
-	else if (whatToWrite == Demage) {
-		output(MovmentManager::getInstace()->getplayer());
-		cout << s << endl;
-	}
-	else {
-		output(MovmentManager::getInstace()->getplayer());
+	output(MovmentManager::getInstace()->getplayer());
+
+	if (whatToWrite == SPAWN) {
 		cout << "Action: PC just spawned" << endl;
 	}
+	else cout << outputString << endl;
 }
 
 void OutputManager::output(Karakter * player)
@@ -41,38 +35,38 @@ void OutputManager::output(Karakter * player)
 
 void OutputManager::outputMovment(Cordinate cor)
 {
-	 s = "Action: PC moves ";
-	s+= movmentOutput(cor ) + ifPotion();
-	whatToWrite = MOVMENT;
+	outputString = "Action: PC moves ";
+	outputString += movmentOutput(cor) + ifPotion();
+	whatToWrite = OTHER;
 }
 
 void OutputManager::outputDmg(Path * p)
 {
 	Npc* monster = p->getObjetOnPath()->toNpc();
-	s = "Action : PC deals ";
-	s += to_string(monster->getDmg());
-	s += " to ";
-	s += monster->displayChar();
-	s += " (";
-	s += to_string(monster->getHP());
-	s += "). ";
-	whatToWrite = Demage;
+	outputString = "Action : PC deals ";
+	outputString += to_string(monster->getDmg());
+	outputString += " to ";
+	outputString += monster->displayChar();
+	outputString += " (";
+	outputString += to_string(monster->getHP());
+	outputString += "). ";
+	whatToWrite = OTHER;
 }
 
 string OutputManager::movmentOutput(Cordinate cor)
 {
-	string s;
+
 	switch (cor.x)
 	{
 	case 1:
 		switch (cor.y)
 		{
 		case 0:
-			return s = "south";
+			return   "south";
 		case 1:
-			return s = "southeast";
+			return  "southeast";
 		case -1:
-			return s = "soutwest";
+			return  "soutwest";
 		default:
 			break;
 		}
@@ -80,11 +74,11 @@ string OutputManager::movmentOutput(Cordinate cor)
 		switch (cor.y)
 		{
 		case 0:
-			return s = "didnt move";
+			return  "didnt move";
 		case 1:
-			return s = "east";
+			return  "east";
 		case -1:
-			return s = "west";
+			return  "west";
 		default:
 			break;
 		}
@@ -92,11 +86,11 @@ string OutputManager::movmentOutput(Cordinate cor)
 		switch (cor.y)
 		{
 		case 0:
-			return s = "north";
+			return "north";
 		case 1:
-			return s = "northeast";
+			return  "northeast";
 		case -1:
-			return s = "northwest";
+			return  "northwest";
 		default:
 			break;
 		}
@@ -105,36 +99,24 @@ string OutputManager::movmentOutput(Cordinate cor)
 	}
 }
 
-string OutputManager::ifPotion()
-{
-	Cordinate addCord;
-	string potion = "";
+string OutputManager::ifPotion() {
+
+	auto mapa = Mapa::getInstance();
+	Path* p;
+	string outputForPotion = "";
 	Cordinate playercor = MovmentManager::getInstace()->getPlayerCord();
-	for (int x = -1; x <= 1; x++) {
-		for (int y = -1; y <= 1; y++) {
-			if (x == 0 && y == 0) {
-
-			}
-			else {
-				addCord = { x,y };
-				Displayble* dis = Mapa::getInstance()->getDisplayable(playercor + addCord);
-				if (dis->isPath())
-				{
-					Path* p = dis->toPath();
-					if (p->isOccupied()) {
-						if (p->getObjetOnPath()->isPotion()) {
-							potion = " unknow potion to the ";
-							potion += movmentOutput(addCord);
-
-						}
-					}
-				}
+	vector<Path*>allPaths = mapa->getPathsAroundByCord(playercor);
+	for (int i = 0; i < allPaths.size(); i++) {
+		p = allPaths[i];
+		if (p->isOccupied()) {
+			if (p->getObjetOnPath()->isPotion()) {
+			
+				outputForPotion = potionOutput(p);
+				
 			}
 		}
 	}
-
-
-	return potion;
+	return outputForPotion;
 }
 
 OutputManager::OutputManager()
@@ -145,3 +127,35 @@ OutputManager::OutputManager()
 OutputManager::~OutputManager()
 {
 }
+
+string OutputManager::potionOutput(Path * p)
+{
+	Cordinate playercor = MovmentManager::getInstace()->getPlayerCord();
+	Cordinate potionCor = Mapa::getInstance()->getCordinateOfPath(p);
+	string output;
+	Karakter* player = MovmentManager::getInstace()->getplayer();
+	Potion* potion = p->getObjetOnPath()->toPotion();
+	if (player->isPotionTypedUsed(potion->getPotionType())) {
+		output = potion->getPotionTypeByString();
+		output += movmentOutput(potionCor - playercor);
+	}
+	else {
+		output = " unknow potion to the ";
+		output += movmentOutput(potionCor - playercor);
+	}
+	return output;
+}
+
+/*
+Tacka pocetna;
+Set tackeKojeSamObisao;
+
+obidjiTacke(Tacka dataTacka, set& tackeKojeSamObisao) {
+	vector<Tacka> okolneTacke = dajOkolne(dataTacka);
+	tackeKojeSamObisao.add(dataTacka);
+	for (tacka : okolneTacke) {
+		if (!tackeKojeSamObisao.contains(tacka)) {
+			obidjiTacke(tacka);
+		}
+	}
+}*/

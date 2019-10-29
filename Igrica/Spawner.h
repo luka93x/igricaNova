@@ -10,6 +10,7 @@ public:
 	static int radnomGeneretor(int number);
 	static Spawner* getinstance();
 	void spawnAll();
+	vector<Path*>floor;
 private:
 	static 	Spawner* instance;
 	Spawner();

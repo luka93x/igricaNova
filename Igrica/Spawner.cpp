@@ -58,7 +58,7 @@ void Spawner::spawnNpc()
 		int randomPath = radnomGeneretor(slot.size());
 		int randomNpc = radnomGeneretor(100);
 		npc = choseWhichNpc(randomNpc);
-		slot[randomPath]->setObjectOnPath(npc);
+	 	slot[randomPath]->setObjectOnPath(npc);
 	}
 }
 
@@ -102,7 +102,6 @@ void Spawner::spawnAll()
 	moveMan->setPlayerCord(cor);
 	spawnPotion();
 	spawnNpc();
-	Mapa::getInstance()->getRoom2();
 }
 
 Cordinate Spawner::spawnKarakter(Karakter* player)
@@ -116,4 +115,5 @@ Cordinate Spawner::spawnKarakter(Karakter* player)
 	player->setRace(inputMenager->getRacefromChar(inputMenager->charForRace()));
 	 Cordinate cor =	map->getCordinateOfPath(slot[randomindex]);
 	 return cor;
+	 map->getInstance()->getFloor(slot[randomindex], &floor);
 }
