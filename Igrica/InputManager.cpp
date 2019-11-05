@@ -1,5 +1,6 @@
 #include "InputManager.h"
 #include <iostream>
+
 using namespace std;
 InputManager* InputManager::instance = nullptr;
 

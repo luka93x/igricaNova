@@ -17,7 +17,7 @@ void Stats::addHP(int num)
 
 void Stats::demage(int dmg)
 {
-	takenDmg = dmg;
+	
 	hp -= dmg;
 	if (hp > maxhp) {
 		hp = maxhp;
@@ -26,10 +26,7 @@ void Stats::demage(int dmg)
 		hp = 0;
 	}
 }
-int Stats::getDmg()
-{
-	return takenDmg;
-}
+
 Stats::~Stats()
 {
 }

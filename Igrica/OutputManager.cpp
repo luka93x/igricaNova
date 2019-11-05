@@ -2,7 +2,7 @@
 #include<iostream>
 #include "MovmentManager.h"
 #include "Npc.h"
-
+#include <stdlib.h>
 using namespace std;
 OutputManager* OutputManager::instance = nullptr;
 
@@ -40,17 +40,60 @@ void OutputManager::outputMovment(Cordinate cor)
 	whatToWrite = OTHER;
 }
 
-void OutputManager::outputDmg(Path * p)
+void OutputManager::outputDmg(Path * p,int dmg)
 {
 	Npc* monster = p->getObjetOnPath()->toNpc();
 	outputString = "Action : PC deals ";
-	outputString += to_string(monster->getDmg());
+	outputString += to_string(dmg);
 	outputString += " to ";
 	outputString += monster->displayChar();
 	outputString += " (";
 	outputString += to_string(monster->getHP());
 	outputString += "). ";
 	whatToWrite = OTHER;
+}
+
+void OutputManager::merchant()
+{
+	Karakter* player = MovmentManager::getInstace()->getplayer();
+	Potion* potion;
+	system("CLS");
+	cout << "Welcome to the shop u can buy :" << endl;
+	cout << "1.Potion of healing 2 gold" << endl;
+	cout << "2.Potion of Attack boost 2 gold" << endl;
+	cout << "3.Potion of Defense boost 2 gold" << endl;
+	cout << "Write the number of item u want to buy  , exit shop on x" << endl;
+
+	char input;
+	cin >> input;
+	if (player->getGold() < 2) {
+		cout << "You dont have enought gold to buy potion";
+		}
+	else {
+		switch (input)
+		{
+		case '1':
+			potion = new Potion("RH");
+			player->addGold(-2);
+			potion->usePotion(player);
+			break;
+		case '2':
+			potion = new Potion("BA");
+			player->addGold(-2);
+			potion->usePotion(player);
+			break;
+		case '3':
+			potion = new Potion("BD");
+			player->addGold(-2);
+			potion->usePotion(player);
+			break;
+		case 'x':
+			break;
+		default:
+			break;
+		}
+
+	}
 }
 
 string OutputManager::movmentOutput(Cordinate cor)
@@ -146,16 +189,3 @@ string OutputManager::potionOutput(Path * p)
 	return output;
 }
 
-/*
-Tacka pocetna;
-Set tackeKojeSamObisao;
-
-obidjiTacke(Tacka dataTacka, set& tackeKojeSamObisao) {
-	vector<Tacka> okolneTacke = dajOkolne(dataTacka);
-	tackeKojeSamObisao.add(dataTacka);
-	for (tacka : okolneTacke) {
-		if (!tackeKojeSamObisao.contains(tacka)) {
-			obidjiTacke(tacka);
-		}
-	}
-}*/

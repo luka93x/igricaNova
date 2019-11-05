@@ -132,6 +132,16 @@ bool Karakter::isPotionTypedUsed(PotionType ptype)
 	return false;
 }
 
+void Karakter::setAttackedMerchant(bool seter)
+{
+	attackedMerchant = seter;
+}
+
+bool Karakter::getAttackedMerchant()
+{
+	return attackedMerchant;
+}
+
 
 
 

@@ -114,6 +114,7 @@ Cordinate Spawner::spawnKarakter(Karakter* player)
 	slot[randomindex]->setObjectOnPath(player);
 	player->setRace(inputMenager->getRacefromChar(inputMenager->charForRace()));
 	 Cordinate cor =	map->getCordinateOfPath(slot[randomindex]);
+	 map->getInstance()->getFloor(slot[randomindex], floor);
 	 return cor;
-	 map->getInstance()->getFloor(slot[randomindex], &floor);
+	
 }

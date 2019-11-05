@@ -12,7 +12,7 @@ AttackManager * AttackManager::getInstance()
 	return instace;
 }
 
-void AttackManager::attack(Stats * attacker, Stats * defender)
+int AttackManager::attack(Stats * attacker, Stats * defender)
 {
 	int dmg = 0;
 	if (attacker->checkIfMonster()) {
@@ -24,6 +24,7 @@ void AttackManager::attack(Stats * attacker, Stats * defender)
 	}
 	else	dmg = (100.0 / (100.0 + defender->getDef()))* attacker->getAtk();
 	defender->demage(dmg);
+	return dmg;
 }
 
 AttackManager::AttackManager()

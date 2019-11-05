@@ -1,7 +1,7 @@
 #pragma once
 #include<string>
 #include"Mapa.h"
-
+#include "Karakter.h"
 using namespace std;
 enum Direction
 {

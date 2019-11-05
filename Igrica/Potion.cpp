@@ -73,7 +73,7 @@ void Potion::usePotion(Karakter* player)
 		}
 		else if (type == PotionType::BA) {
 			player->addAtk(x);
-			player->addTypeofUsedPotion(RH);
+			
 		}
 		else if (type == PotionType::BD) {
 			player->addDef(x);

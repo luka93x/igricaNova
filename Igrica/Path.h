@@ -1,6 +1,5 @@
 #pragma once
 #include "Displayble.h"
-#include "Karakter.h"
 class Path : public Displayble 
 {
 protected:

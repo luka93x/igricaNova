@@ -3,6 +3,7 @@
 #include "Path.h"
 #include "Npc.h"
 #include "Gold.h"
+#include "Potion.h"
 
 Displayble::Displayble(char displayChar)
 {

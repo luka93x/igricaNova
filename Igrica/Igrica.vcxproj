@@ -166,6 +166,7 @@
     <ClInclude Include="OutputManager.h" />
     <ClInclude Include="Path.h" />
     <ClInclude Include="Potion.h" />
+    <ClInclude Include="PotionType.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Stats.h" />
   </ItemGroup>

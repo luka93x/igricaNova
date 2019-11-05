@@ -69,6 +69,9 @@
     <ClInclude Include="OutputManager.h">
       <Filter>Core\menageri</Filter>
     </ClInclude>
+    <ClInclude Include="PotionType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Igrica.cpp">

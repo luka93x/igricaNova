@@ -100,3 +100,8 @@ bool Npc::checkIfMonster()
 {
 	return isMonster;
 }
+
+Monster Npc::getRace()
+{
+	return race;
+}

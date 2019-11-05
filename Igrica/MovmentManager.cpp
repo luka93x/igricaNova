@@ -6,6 +6,7 @@
 #include "AttackManager.h"
 #include "Gold.h"
 #include "OutputManager.h"
+#include "Npc.h"
 using namespace std;
 MovmentManager::MovmentManager() {
 }
@@ -47,6 +48,17 @@ bool MovmentManager::swap2Slots(Path* dis)
 			currentPos->setObjectOnPath(nullptr);
 			return true;
 		}
+		else if (moveToPath->getObjetOnPath()->isNpc()) {
+			Npc* merchant  = moveToPath->getObjetOnPath()->toNpc();
+		
+			if (merchant->getRace() == MERCHANT) {
+				if (!player.getAttackedMerchant()) {
+					OutputManager::getInstance()->merchant();
+				}
+			 }
+
+		}
+
 
 		return false;
 	}
@@ -70,9 +82,13 @@ bool MovmentManager::usePotion(Path * p)
 bool MovmentManager::useAtk(Path * p)
 {
 	if (p->getObjetOnPath()->isNpc()) {
+		Npc* npc = p->getObjetOnPath()->toNpc();
+		if (npc->getRace() == MERCHANT) {
+			player.setAttackedMerchant(true);
+		 }
 		Stats* def = p->getObjetOnPath()->toStats();
-		AttackManager::getInstance()->attack(player.toStats(), def);
-		OutputManager::getInstance()->outputDmg(p);
+		int dmg =AttackManager::getInstance()->attack(player.toStats(), def);
+		OutputManager::getInstance()->outputDmg(p,dmg);
 		if (def->isDead()) {
 			p->setObjectOnPath(new Gold(1));
 		}

@@ -40,7 +40,7 @@ public:
 	vector<Path*> getFilledSlots();
 	vector<Path*> getPathsAroundByCord(Cordinate startingCor);
 	vector<Path*> getAllPath();
-	void getFloor(Path* startingPath, vector<Path*>* allreadyBeen);
+	void getFloor(Path* startingPath, vector<Path*>& allreadyBeen);
 };
 	
 	

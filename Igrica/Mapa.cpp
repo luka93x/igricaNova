@@ -175,53 +175,17 @@ vector<Path*> Mapa::getAllPath()
 	}
 	return allPaths;
 }
-void Mapa::getFloor(Path * startingPath, vector<Path*>* allreadyBeen)
+void Mapa::getFloor(Path * startingPath, vector<Path*>& allreadyBeen)
 {
 	vector<Path*> pathsAround = getPathsAroundByCord(getCordinateOfPath(startingPath));
-	allreadyBeen->push_back(startingPath);
+	allreadyBeen.push_back(startingPath);
 	for (int i = 0; i < pathsAround.size(); i++) {
 		Path* p = pathsAround[i];
-		if (find(allreadyBeen->begin(), allreadyBeen->end(),p) != allreadyBeen->end()) {
-			
+		if (find(allreadyBeen.begin(), allreadyBeen.end(),p) == allreadyBeen.end()) {
+			getFloor(p, allreadyBeen);
 		}
-		else { getFloor(p, allreadyBeen); }
+		
 
 	}
 }
-/*
-vector<Path*> Mapa::getRoom1()
-{
-	vector<Path*>floor;
-	for (int x = 3; x < 8; x++) {
-		for(int y = 3; y < 30; y++) {
-			Displayble* ids = mapa[x][y];
-			if (ids->isPath()) {
-				Path* p = ids->toPath();
-				if (p->displayChar() == '.') {
-					floor.push_back(p);
-				}
-			}
-		}
-	}
-	return floor;
-}
-
-vector<Path*> Mapa::getRoom2()
-{
-	vector<Path*>floor;
-	for (int x = 10; x < 25; x++) {
-		for (int y = 3; y < 30; y++) {
-			Displayble* ids = mapa[x][y];
-			if (ids->isPath()) {
-				Path* p = ids->toPath();
-				if (p->displayChar() == '.') {
-					floor.push_back(p);
-				}
-			}
-		}
-	}
-
-	return floor;
-}
-*/
 

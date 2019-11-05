@@ -4,7 +4,7 @@ class AttackManager
 {
 public:
 	static AttackManager* getInstance();
-	void attack(Stats* attacker, Stats* defender);
+	int attack(Stats* attacker, Stats* defender);
 private:
 	static AttackManager* instace;
 	AttackManager();

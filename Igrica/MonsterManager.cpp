@@ -2,6 +2,7 @@
 #include "AttackManager.h"
 #include "Stats.h"
 #include "Npc.h"
+#include "MovmentManager.h"
 MonsterManager* MonsterManager::instance = nullptr;
 
 MonsterManager * MonsterManager::getInstance()
@@ -36,9 +37,19 @@ void MonsterManager::attackOrMove(Path* monster)
 	auto karakterSlot = isKarakterNext(surroundingPaths);
 	if (karakterSlot)
 	{
-		Stats* karakter = karakterSlot->getObjetOnPath()->toStats();
-		Stats* attacker = monster->getObjetOnPath()->toStats();
-		AttackManager::getInstance()->attack(attacker, karakter);
+		Npc* npc = monster->getObjetOnPath()->toNpc();
+		if (npc->getRace() == MERCHANT) {
+			if (MovmentManager::getInstace()->getplayer()->getAttackedMerchant()) {
+				Stats* karakter = karakterSlot->getObjetOnPath()->toStats();
+				Stats* attacker = monster->getObjetOnPath()->toStats();
+				AttackManager::getInstance()->attack(attacker, karakter);
+			}
+		}
+		else {
+			Stats* karakter = karakterSlot->getObjetOnPath()->toStats();
+			Stats* attacker = monster->getObjetOnPath()->toStats();
+			AttackManager::getInstance()->attack(attacker, karakter);
+		}
 	}
 	else {
 		int randomIndex = rand() % surroundingPaths.size();

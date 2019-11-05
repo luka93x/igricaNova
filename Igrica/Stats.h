@@ -15,8 +15,8 @@ public:
 	void addHP(int num);
 	virtual bool checkIfMonster() = 0;
 	void demage(int dmg);
-	int getDmg();
+	
 protected:
-	int hp, def, atk, maxhp, takenDmg;
+	int hp, def, atk, maxhp;
 	
 };

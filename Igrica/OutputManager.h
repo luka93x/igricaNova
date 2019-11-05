@@ -12,7 +12,8 @@ public:
 	void outInfo();
 	void output(Karakter* player);
 	void outputMovment(Cordinate cor);
-	void outputDmg(Path* p);
+	void outputDmg(Path* p,int dmg);
+	void merchant();
 private:
 	string movmentOutput(Cordinate cor);
 	static OutputManager* instance;
