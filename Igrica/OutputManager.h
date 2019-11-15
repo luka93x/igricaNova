@@ -14,6 +14,7 @@ public:
 	void outputMovment(Cordinate cor);
 	void outputDmg(Path* p,int dmg);
 	void merchant();
+	void stairs();
 private:
 	string movmentOutput(Cordinate cor);
 	static OutputManager* instance;

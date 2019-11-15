@@ -37,10 +37,12 @@ public:
 	Displayble * getDisplayable(Cordinate cord);
 	vector<Path*> getEmptySlots();
 	Cordinate getCordinateOfPath(Path* p);
-	vector<Path*> getFilledSlots();
+	vector<Path*> getMonsterSlots();
 	vector<Path*> getPathsAroundByCord(Cordinate startingCor);
 	vector<Path*> getAllPath();
-	void getFloor(Path* startingPath, vector<Path*>& allreadyBeen);
+	vector<Path*> getFilledSlots();
+	void getFloor(Path* startingPath, set<Path*>& allreadyBeen);
+	void resetObjectsOnPath();
 };
 	
 	

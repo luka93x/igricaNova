@@ -96,6 +96,11 @@ void OutputManager::merchant()
 	}
 }
 
+void OutputManager::stairs()
+{
+	outputString = "Action : PC have climbed the stairs to new floor ";
+}
+
 string OutputManager::movmentOutput(Cordinate cor)
 {
 

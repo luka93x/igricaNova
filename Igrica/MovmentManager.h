@@ -17,7 +17,8 @@ private:
 	bool swap2Slots(Path* dis);
 	bool usePotion(Path* p);
 	bool useAtk(Path* p);
-
+	bool checkIfStairs(Path* p);
+	void usedStairs();
 public:
 	Karakter* getplayer();
 	bool resolveAction(pair< Action,Cordinate>*);

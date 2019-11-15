@@ -10,7 +10,7 @@ static void update() {
 	mapa->printMap();
 	OutputManager::getInstance()->outInfo();
 	movmentManager->resolveAction(inputManager->returnAction(inputManager->input()));
-	MonsterManager::getInstance()->resolveAllMonsters(mapa->getFilledSlots());
+	MonsterManager::getInstance()->resolveAllMonsters(mapa->getMonsterSlots());
 	
 };
 Game::Game()

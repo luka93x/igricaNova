@@ -7,6 +7,8 @@
 #include "Gold.h"
 #include "OutputManager.h"
 #include "Npc.h"
+#include "Stairs.h"
+#include "Spawner.h"
 using namespace std;
 MovmentManager::MovmentManager() {
 }
@@ -47,6 +49,9 @@ bool MovmentManager::swap2Slots(Path* dis)
 			moveToPath->setObjectOnPath(&player);
 			currentPos->setObjectOnPath(nullptr);
 			return true;
+		}
+		else if (checkIfStairs(moveToPath)) {
+			usedStairs();
 		}
 		else if (moveToPath->getObjetOnPath()->isNpc()) {
 			Npc* merchant  = moveToPath->getObjetOnPath()->toNpc();
@@ -95,6 +100,22 @@ bool MovmentManager::useAtk(Path * p)
 		return true;
 	}
 	return false;
+}
+
+bool MovmentManager::checkIfStairs(Path * p)
+{
+	if (p->getObjetOnPath()->isStairs()) {
+		return true;
+	}
+	return false;
+
+}
+
+void MovmentManager::usedStairs()
+{   // to do napravi da mozes i da sidjes dole
+	Mapa::getInstance()->resetObjectsOnPath();
+	Spawner::getinstance()->spawnFloor();
+	OutputManager::getInstance()->stairs();
 }
 
 

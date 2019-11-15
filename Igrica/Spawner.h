@@ -10,7 +10,8 @@ public:
 	static int radnomGeneretor(int number);
 	static Spawner* getinstance();
 	void spawnAll();
-	vector<Path*>floor;
+	set<Path*>floor;
+	void spawnFloor();
 private:
 	static 	Spawner* instance;
 	Spawner();
@@ -18,5 +19,8 @@ private:
 	void spawnPotion();
 	void spawnNpc();
 	Npc* choseWhichNpc(int x);
+	void spawnStairs();
+	bool isStairsInSameRoom(Path* stairs);
+	
 };
 

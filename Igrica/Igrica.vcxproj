@@ -168,6 +168,7 @@
     <ClInclude Include="Potion.h" />
     <ClInclude Include="PotionType.h" />
     <ClInclude Include="Spawner.h" />
+    <ClInclude Include="Stairs.h" />
     <ClInclude Include="Stats.h" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +187,7 @@
     <ClCompile Include="Path.cpp" />
     <ClCompile Include="Potion.cpp" />
     <ClCompile Include="Spawner.cpp" />
+    <ClCompile Include="Stairs.cpp" />
     <ClCompile Include="Stats.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

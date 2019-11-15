@@ -2,6 +2,7 @@
 #include<time.h>
 #include "MovmentManager.h"
 #include<iostream>
+#include "Stairs.h"
 
 using namespace std;
 
@@ -85,6 +86,31 @@ Npc * Spawner::choseWhichNpc(int x)
 	return n;
 }
 
+void Spawner::spawnStairs()
+{
+	bool sameFloor= true;
+	vector<Path*>emptySlot = Mapa::getInstance()->getEmptySlots();
+	int randomPath=0;
+	while (sameFloor) {
+	 randomPath = radnomGeneretor(emptySlot.size());
+	sameFloor = isStairsInSameRoom(emptySlot[randomPath]);
+	
+	
+	}
+	emptySlot[randomPath]->setObjectOnPath(new Stairs());
+}
+
+bool Spawner::isStairsInSameRoom(Path* stairs)
+{
+	for(set<Path*>::iterator it = floor.begin();it !=floor.end();it++){
+	
+		if (stairs == *it) {
+			return true;
+		}
+	}
+	return false;
+}
+
 Spawner * Spawner::getinstance()
 {
 
@@ -102,6 +128,20 @@ void Spawner::spawnAll()
 	moveMan->setPlayerCord(cor);
 	spawnPotion();
 	spawnNpc();
+	spawnStairs();
+}
+
+void Spawner::spawnFloor()
+{
+	auto map = Mapa::getInstance();
+	auto player = MovmentManager::getInstace()->getplayer();
+
+	auto slot = map->getEmptySlots();
+	int randomindex = radnomGeneretor(slot.size());
+	slot[randomindex]->setObjectOnPath(player);
+	spawnPotion();
+	spawnNpc();
+	spawnStairs();
 }
 
 Cordinate Spawner::spawnKarakter(Karakter* player)

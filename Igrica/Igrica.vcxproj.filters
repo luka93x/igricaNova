@@ -72,6 +72,9 @@
     <ClInclude Include="PotionType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Stairs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Igrica.cpp">
@@ -121,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="OutputManager.cpp">
       <Filter>Core\menageri</Filter>
+    </ClCompile>
+    <ClCompile Include="Stairs.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

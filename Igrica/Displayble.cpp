@@ -4,6 +4,7 @@
 #include "Npc.h"
 #include "Gold.h"
 #include "Potion.h"
+#include "Stairs.h"
 
 Displayble::Displayble(char displayChar)
 {
@@ -54,6 +55,14 @@ bool Displayble::isKarakter()
 Npc * Displayble::toNpc()
 {
 	return dynamic_cast<Npc*>(this);
+}
+bool Displayble::isStairs()
+{
+	return dynamic_cast<Stairs*>(this) != nullptr;
+}
+Stairs * Displayble::toStairs()
+{
+	return 	dynamic_cast<Stairs*>(this);
 }
 char Displayble::displayChar() {
 	return dChar;

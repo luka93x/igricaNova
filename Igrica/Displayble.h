@@ -5,7 +5,9 @@ class Potion;
 class Stats;
 class Gold;
 class Npc;
+class Stairs;
 class Displayble
+
 {
 public:
 	virtual char displayChar();
@@ -20,6 +22,8 @@ public:
 	Gold* toGold();
 	bool isKarakter();
 	Npc* toNpc();
+	bool isStairs();
+	Stairs* toStairs();
 protected:
 	Displayble(char displayChar);
 	virtual ~Displayble();

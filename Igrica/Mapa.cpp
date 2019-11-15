@@ -74,10 +74,7 @@ Mapa * Mapa::getInstance()
 }
 
 void Mapa::printMap() {
-	for (size_t i = 0; i < 100; i++)
-	{
-		cout << endl;
-	}
+	system("CLS");
 	for (int i = 0; i < 25; i++) {
 		for (int j = 0; j < 80; j++) {
 
@@ -124,6 +121,18 @@ Cordinate Mapa::getCordinateOfPath(Path * p)
 	return playercord;
 }
 
+vector<Path*> Mapa::getMonsterSlots()
+{
+	vector<Path*>fillSlots = getFilledSlots();
+	vector<Path*>MonsterSlots;
+	for (int i = 0; i < fillSlots.size(); i++) {
+		if (fillSlots[i]->getObjetOnPath()->isNpc()) {
+			MonsterSlots.push_back(fillSlots[i]);
+		}
+	}
+	return MonsterSlots;
+}
+
 vector<Path*> Mapa::getFilledSlots()
 {
 	vector<Path*>allPath = getAllPath();
@@ -132,9 +141,7 @@ vector<Path*> Mapa::getFilledSlots()
 	for (int i = 0; i < allPath.size(); i++) {
 		p = allPath[i];
 		if (p->isOccupied()) {
-			if (p->getObjetOnPath()->isNpc()) {
-				filledSlots.push_back(p);
-			}
+			filledSlots.push_back(p);
 		}
 	}
 	return filledSlots;
@@ -175,17 +182,28 @@ vector<Path*> Mapa::getAllPath()
 	}
 	return allPaths;
 }
-void Mapa::getFloor(Path * startingPath, vector<Path*>& allreadyBeen)
+void Mapa::getFloor(Path * startingPath, set<Path*>& allreadyBeen)
 {
 	vector<Path*> pathsAround = getPathsAroundByCord(getCordinateOfPath(startingPath));
-	allreadyBeen.push_back(startingPath);
+	allreadyBeen.insert(startingPath);
 	for (int i = 0; i < pathsAround.size(); i++) {
 		Path* p = pathsAround[i];
-		if (find(allreadyBeen.begin(), allreadyBeen.end(),p) == allreadyBeen.end()) {
-			getFloor(p, allreadyBeen);
+		if (p->displayChar() == '.') {
+			if (find(allreadyBeen.begin(), allreadyBeen.end(), p) == allreadyBeen.end()) {
+				getFloor(p, allreadyBeen);
+			}
 		}
-		
+
 
 	}
+}
+
+void Mapa::resetObjectsOnPath()
+{
+	vector<Path*>filledSlots = getFilledSlots();
+	for (int i = 0; i < filledSlots.size(); i++) {
+		filledSlots[i]->setObjectOnPath(nullptr);
+	}
+
 }
 
